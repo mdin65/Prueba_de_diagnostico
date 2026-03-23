@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <title>Miner Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a2e; color: white; text-align: center; }
+        .dashboard { display: flex; gap: 20px; width: 95%; margin: 20px auto; }
+        .card { background: #16213e; padding: 20px; border-radius: 15px; flex: 1; border: 1px solid #0f3460; }
+        h1 { color: #4cc9f0; }
+        h2 { color: #4361ee; }
+    </style>
+</head>
+<body>
+    <h1>📊 Miner de Código en Tiempo Real</h1>
+    <h3 id="status">Esperando datos del archivo JSON...</h3>
+
+    <div class="dashboard">
+        <div class="card">
+            <h2 id="titulo_repo">Repositorio: ---</h2>
+            <canvas id="chartLocal"></canvas>
+        </div>
+        <div class="card">
+            <h2>🏆 Ranking Global Acumulado</h2>
+            <canvas id="chartGlobal"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctxL = document.getElementById('chartLocal').getContext('2d');
+        const ctxG = document.getElementById('chartGlobal').getContext('2d');
+
+        const crearConfig = (label, color) => ({
+            type: 'bar',
+            data: { labels: [], datasets: [{ label: label, data: [], backgroundColor: color }] },
+            options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        const chartLocal = new Chart(ctxL, crearConfig('Frecuencia', '#f72585'));
+        const chartGlobal = new Chart(ctxG, crearConfig('Total', '#4cc9f0'));
+
+        async function update() {
+            try {
+                // El '?t=' + Date.now() obliga al navegador a leer el archivo nuevo SIEMPRE
+                const res = await fetch('progreso_miner.json?t=' + Date.now());
+                if (!res.ok) throw new Error("No existe el JSON");
+                const d = await res.json();
+
+                document.getElementById('status').innerText = `Progreso: ${d.progreso} repositorios`;
+                document.getElementById('titulo_repo').innerText = `Analizado: ${d.repo_actual}`;
+
+                chartLocal.data.labels = Object.keys(d.top_del_repo);
+                chartLocal.data.datasets[0].data = Object.values(d.top_del_repo);
+                chartLocal.update();
+
+                chartGlobal.data.labels = Object.keys(d.ranking_general);
+                chartGlobal.data.datasets[0].data = Object.values(d.ranking_general);
+                chartGlobal.update();
+            } catch (e) {
+                document.getElementById('status').innerText = "Buscando archivo progreso_miner.json...";
+            }
+        }
+        setInterval(update, 2000);
+    </script>
+</body>
+</html>

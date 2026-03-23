@@ -15,3 +15,11 @@ Repository('path/to/the/repo', filepath='Matricula.javax').traverse_commits()
 
 # Only commits that modified a java file
 Repository('path/to/the/repo', only_modifications_with_file_types=['.java']).traverse_commits()
+
+
+## ---------------------------------------------------------------
+## ---------------------------------------------------------------
+## ---------------------------------------------------------------
+
+mmm no use docker sino que hice un localserver en la carpeta en donde tenemos este python y el html con python -m http.server 8000 en el cmd
+esto hace un json y despues lo sube en el html y lo deja bonito con una buena cantidad de ia o sino nose como hacerlo :PPP
