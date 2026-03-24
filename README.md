@@ -39,4 +39,5 @@ Navegador web
 **Visualización**: Gráficos en tiempo real con Chart.js, leyendo JSON local.
 
 **Pydriller**: https://pydriller.readthedocs.io/en/latest/
+
 **ChartJs**: https://github.com/chartjs
