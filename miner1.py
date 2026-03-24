@@ -15,7 +15,16 @@ def extraer_palabras_de_funcion(nombre_funcion):
 
 # lista de repos
 repos_a_minar = [
-    "https://github.com/pallets/flask"
+    "https://github.com/donnemartin/system-design-primer",
+    "https://github.com/vinta/awesome-python",
+    "https://github.com/TheAlgorithms/Python",
+    "https://github.com/Significant-Gravitas/AutoGPT",
+    "https://github.com/huggingface/transformers",
+    "https://github.com/Snailclimb/JavaGuide",
+    "https://github.com/spring-projects/spring-boot",
+    "https://github.com/MisterBooo/LeetCodeAnimation",
+    "https://github.com/termux/termux-app",
+    "https://github.com/ReactiveX/RxJava"
 ]
 
 # Regex para Python y Java

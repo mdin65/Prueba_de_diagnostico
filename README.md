@@ -1,25 +1,46 @@
-# Prueba_de_diagnostico
+# Prueba de Diagnóstico: Miner de Código en Tiempo Real
 
-se tiene que elegir el commit de esta manera:
-# Analyze single commit
-Repository('path/to/the/repo', single='6411e3096dd2070438a17b225f44475136e54e3a').traverse_commits()
+Este proyecto implementa un sistema de minería de código que analiza repositorios de GitHub para extraer palabras clave de nombres de funciones en lenguajes Python y Java, generando visualizaciones en tiempo real.
 
-o sino hacerlo desde una fecha en especifico:
-# Since 8/10/2016
-Repository('path/to/the/repo', since=datetime(2016, 10, 8, 17, 0, 0)).traverse_commits()
+## Componentes
 
-ESTO FILTRA SI SON JAVA O PYTHON:
+- **miner1.py**: Script en Python que utiliza PyDriller para analzar repositorios, extraer nombres de funciones y contar frecuencias de palabras.
+- **visualizador.html**: Interfaz web con Chart.js que muestra gráficos de barras en tiempo real leyendo un archivo JSON generado por el miner.
 
-# Only commit that modified "Matricula.javax"
-Repository('path/to/the/repo', filepath='Matricula.javax').traverse_commits()
+## Requisitos
 
-# Only commits that modified a java file
-Repository('path/to/the/repo', only_modifications_with_file_types=['.java']).traverse_commits()
+Python 3.x instalado.
+Bibliotecas: PyDriller (`pip install pydriller`).
+Navegador web
 
+## Instrucciones de Ejecución
 
-## ---------------------------------------------------------------
-## ---------------------------------------------------------------
-## ---------------------------------------------------------------
+1. Instala dependencias:
+   ```
+   pip install pydriller
+   ```
 
-mmm no use docker sino que hice un localserver en la carpeta en donde tenemos este python y el html con python -m http.server 8000 en el cmd
-esto hace un json y despues lo sube en el html y lo deja bonito con una buena cantidad de ia o sino nose como hacerlo :PPP
+2. Ejecuta el miner:
+   ```
+   python miner1.py
+   ```
+   Esto generará `progreso_miner.json` en el directorio actual.
+
+3. Abre `visualizador.html` en un navegador web (doble clic o servidor local abriendo un cmd en la carpeta en donde estan contenidos los archivos con `python -m http.server 8000`).
+
+4. El visualizador se actualiza automáticamente cada 2 segundos leyendo el JSON.
+
+## Documentación de Implementación
+
+### Decisiones de Diseño
+
+- **Minería limitada a HEAD**: Se analiza solo el último commit de cada repositorio para eficiencia y simplicidad, evitando procesamiento histórico completo.
+- **Lenguajes soportados**: Solo Python (.py) y Java (.java) debido a la regex utilizada para extraer nombres de funciones.
+- **Visualización**: Gráficos en tiempo real con Chart.js, leyendo JSON local.
+
+### Supuestos
+
+- Repositorios son públicos y accesibles vía GitHub.
+- El sistema se ejecuta localmente.
+- El visualizador asume que el JSON existe y se actualiza periódicamente.
+
