@@ -4,8 +4,8 @@ Este proyecto implementa un sistema de minería de código que analiza repositor
 
 ## Componentes
 
-- **miner1.py**: Script en Python que utiliza PyDriller para analzar repositorios, extraer nombres de funciones y contar frecuencias de palabras.
-- **visualizador.html**: Interfaz web con Chart.js que muestra gráficos de barras en tiempo real leyendo un archivo JSON generado por el miner.
+**miner1.py**: Script en Python que utiliza PyDriller para analzar repositorios, extraer nombres de funciones y contar frecuencias de palabras.
+**visualizador.html**: Interfaz web con Chart.js que muestra gráficos de barras en tiempo real leyendo un archivo JSON generado por el miner.
 
 ## Requisitos
 
@@ -34,6 +34,9 @@ Navegador web
 
 ### Decisiones de Diseño
 
-- **Minería limitada a HEAD**: Se analiza solo el último commit de cada repositorio para eficiencia y simplicidad, evitando procesamiento histórico completo.
-- **Lenguajes soportados**: Solo Python (.py) y Java (.java) debido a la regex utilizada para extraer nombres de funciones.
-- **Visualización**: Gráficos en tiempo real con Chart.js, leyendo JSON local.
+**Minería limitada a HEAD**: Se analiza solo el último commit de cada repositorio para eficiencia y simplicidad, evitando procesamiento histórico completo.
+**Lenguajes soportados**: Solo Python (.py) y Java (.java) debido a la regex utilizada para extraer nombres de funciones.
+**Visualización**: Gráficos en tiempo real con Chart.js, leyendo JSON local.
+
+**Pydriller**: https://pydriller.readthedocs.io/en/latest/
+**ChartJs**: https://github.com/chartjs
